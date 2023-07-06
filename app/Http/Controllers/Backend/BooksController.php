@@ -18,12 +18,9 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $total_books = Book::get()->count();
-        // dd($total_books);
-        $total_authors = Author::get()->count();
-        $total_publishers = Publisher::get()->count();
-        $total_categories = Category::get()->count();
-        return view('backend.pages.index', compact('total_books','total_authors','total_publishers','total_categories'));
+        $categories = Book::all();
+        $parent_category = Category::where('parent_id',null)->get();
+        return view('backend.pages.books.index',compact('categories','parent_category'));
         
     }
 
@@ -45,7 +42,25 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required | max:50',
+            'slug' => 'nullable | unique:categories',
+            
+        ]);
+        $category = new Category();
+        $category->name = $request->name;
+        if(empty($request->slug)){
+            $category->slug = Str::slug($request->name);
+        }else{
+            $category->slug = $request->slug;
+        }
+        $category->parent_id = $request->parent_category;
+        $category->description = $request->description;
+
+        $category->save();
+
+        session()->flash('success','Category has been created !!');
+        return back();
     }
 
     /**
@@ -79,7 +94,29 @@ class BooksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+
+        $request->validate([
+            'name' => 'required | max:50',
+            'slug' => 'nullable | unique:categories,slug'.$category->id,
+            'description' => 'nullable',
+            
+        ]);
+  
+
+        $category->name = $request->name;
+        if(empty($request->slug)){
+            $category->slug = Str::slug($request->name);
+        }else{
+            $category->slug = $request->slug;
+        }
+        $category->parent_id = $request->parent_category;
+        $category->description = $request->description;
+
+        $category->save();
+
+        session()->flash('success','Category has been updated !!');
+        return back();
     }
 
     /**
@@ -90,6 +127,14 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $child_categories = Category::where('parent_id',$id)->get();
+        foreach($child_categories as $child){
+            $child->delete();
+        }
+        $category = Category::find($id);
+        $category->delete();
+
+        session()->flash('success','Category has been deleted successfully !');
+        return back();
     }
 }

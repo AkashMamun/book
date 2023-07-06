@@ -125,6 +125,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $child_categories = Category::where('parent_id',$id)->get();
+        foreach($child_categories as $child){
+            $child->delete();
+        }
+        $category = Category::find($id);
+        $category->delete();
+
+        session()->flash('success','Category has been deleted successfully !');
+        return back();
     }
 }
