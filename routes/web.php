@@ -31,7 +31,9 @@ Route::group(['prefix' => 'admin'],function(){
 
     Route::group(['prefix' => 'books'],function(){
         Route::get('/','Backend\BooksController@index')->name('admin.books.index');
-        Route::get('/{id}','Backend\BooksController@show')->name('admin.books.show');
+        //Route::get('/{id}','Backend\BooksController@show')->name('admin.books.show');
+        Route::get('/create','Backend\BooksController@create')->name('admin.books.create');
+        Route::get('/store','Backend\BooksController@store')->name('admin.books.store');
     });
 
     // Author Control Route

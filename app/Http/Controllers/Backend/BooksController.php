@@ -6,6 +6,7 @@ use App\Book;
 use App\Author;
 use App\Category;
 use App\Publisher;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,9 +19,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $categories = Book::all();
-        $parent_category = Category::where('parent_id',null)->get();
-        return view('backend.pages.books.index',compact('categories','parent_category'));
+        $books = Book::all();
+        return view('backend.pages.books.index',compact('books'));
         
     }
 
@@ -31,7 +31,13 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        // Is book controller get the route
+       // return 1;
+        $categories = Category::all();
+        $publishers = Publisher::all();
+        $authors = Author::all();
+
+        return view('backend.pages.books.create',compact('categories','publishers','authors'));
     }
 
     /**
@@ -47,19 +53,19 @@ class BooksController extends Controller
             'slug' => 'nullable | unique:categories',
             
         ]);
-        $category = new Category();
-        $category->name = $request->name;
+        $book = new Book();
+        $book->name = $request->name;
         if(empty($request->slug)){
-            $category->slug = Str::slug($request->name);
+            $book->slug = Str::slug($request->name);
         }else{
-            $category->slug = $request->slug;
+            $book->slug = $request->slug;
         }
-        $category->parent_id = $request->parent_category;
-        $category->description = $request->description;
+        $book->parent_id = $request->parent_book;
+        $book->description = $request->description;
 
-        $category->save();
+        $book->save();
 
-        session()->flash('success','Category has been created !!');
+        session()->flash('success','book has been created !!');
         return back();
     }
 
@@ -94,28 +100,28 @@ class BooksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::find($id);
+        $book = Book::find($id);
 
         $request->validate([
             'name' => 'required | max:50',
-            'slug' => 'nullable | unique:categories,slug'.$category->id,
+            'slug' => 'nullable | unique:categories,slug'.$book->id,
             'description' => 'nullable',
             
         ]);
   
 
-        $category->name = $request->name;
+        $book->name = $request->name;
         if(empty($request->slug)){
-            $category->slug = Str::slug($request->name);
+            $book->slug = Str::slug($request->name);
         }else{
-            $category->slug = $request->slug;
+            $book->slug = $request->slug;
         }
-        $category->parent_id = $request->parent_category;
-        $category->description = $request->description;
+        $book->parent_id = $request->parent_book;
+        $book->description = $request->description;
 
-        $category->save();
+        $book->save();
 
-        session()->flash('success','Category has been updated !!');
+        session()->flash('success','book has been updated !!');
         return back();
     }
 
@@ -127,14 +133,15 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        $child_categories = Category::where('parent_id',$id)->get();
-        foreach($child_categories as $child){
-            $child->delete();
-        }
-        $category = Category::find($id);
-        $category->delete();
 
-        session()->flash('success','Category has been deleted successfully !');
-        return back();
+    // $book= Book::where('parent_id',$id)->get();
+    //     foreach($child_books as $child){
+    //         $child->delete();
+    //     }
+    //     $book = book::find($id);
+    //     $book->delete();
+
+    //     session()->flash('success','book has been deleted successfully !');
+    //     return back();
     }
 }
