@@ -8,6 +8,9 @@
 <link href="{{ asset('backend/css/css_dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/jquery.dataTables.min.css') }}" rel="stylesheet">
 
+{{-- select 2 css --}}
+<link href="{{ asset('backend/css/select2.min.css') }}" rel="stylesheet">
+
 <!-- Custom styles for this template-->
 <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/custom.css') }}" rel="stylesheet">
