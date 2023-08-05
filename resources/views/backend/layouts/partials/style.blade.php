@@ -11,6 +11,10 @@
 {{-- select 2 css --}}
 <link href="{{ asset('backend/css/select2.min.css') }}" rel="stylesheet">
 
+{{-- summer note css --}}
+<link href="{{ asset('backend/css/summernote.css') }}" rel="stylesheet">
+
+
 <!-- Custom styles for this template-->
 <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/custom.css') }}" rel="stylesheet">

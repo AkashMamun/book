@@ -42,6 +42,11 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="col-md-6">
+                        <label for="isbn">Book ISBN</label>
+                        <br>
+                        <input type="text" class="form-control" name="isbn" placeholder="Book ISBN">
+                    </div>
                     <div class="col-md-6"> 
                         <label for="category">Book Author</label>
                         <br>
@@ -72,18 +77,26 @@
                             @endfor
                         </select>
                     </div>
+                    
                     <div class="col-md-6">
                         <label for="category">Book Featured Image</label>
                         <br>
                         <input type="file" name="image" id="image" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        
+                        <label for="translator_id">Translator Book</label>
+                        <br>
+                        <select name="translator_id" id="translator_id" class="form-control select2" >
+                            <option value="">Select a translator book</option>
+                            @foreach ($books as $book)
+                                <option value="{{ $book->id }}">{{ $book->title }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-12">
-                        <label for="">Book Details</label>
+                        <label for="summernote">Book Details</label>
                         <br>
-                        <textarea name="details" id="details" cols="30" rows="10" class="form-control">{!! $category->name !!}</textarea>                    
+                        <textarea name="description" id="summernote" cols="30" rows="10" class="form-control">{!! $category->name !!}</textarea>                    
                     </div>
                 </div>
                 <div class="mt-4">

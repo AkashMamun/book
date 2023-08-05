@@ -37,8 +37,10 @@ class BooksController extends Controller
         $categories = Category::all();
         $publishers = Publisher::all();
         $authors = Author::all();
+        $books = Book::where('is_approved',1)->get();
 
-        return view('backend.pages.books.create',compact('categories','publishers','authors'));
+
+        return view('backend.pages.books.create',compact('categories','publishers','authors','books'));
     }
 
     /**
@@ -77,6 +79,8 @@ class BooksController extends Controller
         $book->publisher_id = $request->publisher_id;
         $book->publish_year = $request->publish_year;
         $book->description = $request->description;
+        $book->isbn = $request->isbn;
+        $book->translator_id = $request->translator_id;
         $book->is_approved = 1;
 
          //Image Upload

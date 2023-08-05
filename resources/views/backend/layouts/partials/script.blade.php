@@ -12,6 +12,9 @@
  {{-- select 2 js --}}
  <script src="{{ asset('backend/js/select2.min.js') }}"></script>
 
+ {{-- summernote js --}}
+ <script src="{{ asset('backend/js/summernote.js') }}"></script>
+
  <!-- Custom scripts for all pages-->
  <script src="{{ asset('backend/js/sb-admin-2.min.js') }}"></script>
 
@@ -24,8 +27,9 @@
 
  <script>
     $(document).ready( function () {
-    $('#dataTable').DataTable();
-    $('.select2').select2();
+      $('#dataTable').DataTable();
+      $('.select2').select2();
+      $('#summernote').summernote();
     });
 
  </script>
