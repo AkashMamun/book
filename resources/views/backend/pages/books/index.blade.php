@@ -70,7 +70,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-success"  data-toggle="modal" data-target="#editModal{{$book->id}}"><i class="fa fa-edit">Edit</i></a>
+                                    <a href="{{ route('admin.books.edit',$book->id)}}" class="btn btn-success"><i class="fa fa-edit">Edit</i></a>
+                                    
                                     <a href="" class="btn btn-danger"  data-toggle="modal" data-target="#deleteModal{{$book->id}}"><i class="fa fa-trash">Delete</i></a>
                                 </td>
                             </tr>

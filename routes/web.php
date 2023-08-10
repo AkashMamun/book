@@ -33,6 +33,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/','Backend\BooksController@index')->name('admin.books.index');
         Route::get('/{id}','Backend\BooksController@show')->name('admin.books.show')->where('id', '[0-9]+');
         Route::get('/create','Backend\BooksController@create')->name('admin.books.create');
+        Route::get('/edit/{id}','Backend\BooksController@edit')->name('admin.books.edit');
+        Route::post('/update/{id}','Backend\BooksController@update')->name('admin.books.update');
         Route::post('/store','Backend\BooksController@store')->name('admin.books.store');
     });
 
@@ -70,3 +72,7 @@ Route::group(['prefix' => 'admin'],function(){
 
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
