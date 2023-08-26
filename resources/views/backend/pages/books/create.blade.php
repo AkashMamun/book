@@ -96,7 +96,11 @@
                     <div class="col-12">
                         <label for="summernote">Book Details</label>
                         <br>
-                        <textarea name="description" id="summernote" cols="30" rows="10" class="form-control">{!! $category->name !!}</textarea>                    
+                        <textarea name="description" id="summernote" cols="30" rows="10" class="form-control">
+                            @foreach($categories as $category)
+                                {{ $category->name }}
+                            @endforeach
+                        </textarea>                    
                     </div>
                 </div>
                 <div class="mt-4">

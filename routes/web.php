@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,9 @@ Route::get('/', 'PagesController@index')->name('index');
 
 Route::get('/books', 'BooksController@index')->name('books.index');
 Route::get('/books/single-book', 'BooksController@show')->name('books.show');
+Route::get('/books/upload/new', 'BooksController@create')->name('upload.create');
+Route::post('/books/upload/post', 'BooksController@store')->name('books.store');
+
 
 
 Route::get('/books/categories/{slug}', 'CategoryController@show')->name('categories.show');
@@ -73,6 +77,7 @@ Route::group(['prefix' => 'admin'],function(){
 
 });
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
